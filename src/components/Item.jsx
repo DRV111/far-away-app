@@ -13,7 +13,6 @@ function Item(props) {
 
 Item.propTypes = {
   item: PropTypes.object.isRequired,
-  initialItems: PropTypes.array.isRequired,
 };
 
 export default Item;
