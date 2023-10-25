@@ -1,18 +1,12 @@
-import PropTypes from 'prop-types';
-function Item(props) {
-  const { item } = props;
+function Item({ item, onDeleteItem }) {
   return (
     <li>
       <span>
         {item.quantity} - {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
-
-Item.propTypes = {
-  item: PropTypes.object.isRequired,
-};
 
 export default Item;
