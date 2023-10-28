@@ -32,7 +32,7 @@ function App() {
         onDeleteItem={handleDeleteItem}
         onCheckItem={handleCheckItem}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
