@@ -15,11 +15,23 @@ function App() {
     setItems((items) => items.filter((itm) => itm.id !== id));
   }
 
+  function handleCheckItem(id) {
+    setItems((items) =>
+      items.map((itm) =>
+        itm.id === id ? { ...itm, packed: !itm.packed } : itm
+      )
+    );
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItems} />
-      <PackingList items={items} onDeleteItem={handleDeleteItem} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onCheckItem={handleCheckItem}
+      />
       <Stats />
     </div>
   );
