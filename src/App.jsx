@@ -4,9 +4,11 @@ import Form from './components/Form';
 import PackingList from './components/PackingList';
 import Stats from './components/Stats';
 import { useState } from 'react';
+import ModalWindow from './components/ModalWindow';
 
 function App() {
   const [items, setItems] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
   }
@@ -23,17 +25,37 @@ function App() {
     );
   }
 
+  function handleOpenModal() {
+    if (items.length) {
+      setOpenModal(true);
+    }
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
+  function handleClearList() {
+    setItems([]);
+    setOpenModal(false);
+  }
+
   return (
-    <div className="app">
-      <Logo />
-      <Form onAddItems={handleAddItems} />
-      <PackingList
-        items={items}
-        onDeleteItem={handleDeleteItem}
-        onCheckItem={handleCheckItem}
-      />
-      <Stats items={items} />
-    </div>
+    <>
+      {openModal && (
+        <ModalWindow onOpen={handleClearList} onClose={handleCloseModal} />
+      )}
+      <div className={openModal ? 'app overlay' : 'app'}>
+        <Logo />
+        <Form onAddItems={handleAddItems} />
+        <PackingList
+          items={items}
+          onDeleteItem={handleDeleteItem}
+          onCheckItem={handleCheckItem}
+          onReset={handleOpenModal}
+        />
+        <Stats items={items} />
+      </div>
+    </>
   );
 }
 
